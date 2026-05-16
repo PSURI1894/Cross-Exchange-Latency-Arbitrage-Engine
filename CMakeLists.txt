@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.12)
+project(LatencyArbitrageEngine CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/cpp)
+
+add_executable(sim_main cpp/sim_main.cpp cpp/solarflare_mock.cpp cpp/pcie_dma.cpp cpp/control_plane.cpp cpp/telemetry.cpp)
+add_executable(cli_monitor cpp/cli_monitor.cpp cpp/telemetry.cpp)
+
+enable_testing()
+add_test(NAME LatencySLATest COMMAND sim_main)
