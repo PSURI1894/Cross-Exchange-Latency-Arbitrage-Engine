@@ -2,7 +2,6 @@
 #pragma once
 #include <atomic>
 #include <cstddef>
-
 template <typename T, size_t Capacity>
 class CircularBuffer {
 public:
