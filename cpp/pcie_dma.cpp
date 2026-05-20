@@ -1,5 +1,6 @@
 #include "pcie_dma.hpp"
 #include <atomic>
+#include <iostream>
 PCIeDMA::PCIeDMA() {
     regs_.cfg_stock_id = 0; regs_.slow_venue_bid = 0; regs_.slow_venue_ask = 0;
     regs_.cfg_threshold = 0; regs_.cfg_max_pos = 0; regs_.cfg_max_loss = 0;
