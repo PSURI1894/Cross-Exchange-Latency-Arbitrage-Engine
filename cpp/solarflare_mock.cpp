@@ -3,7 +3,7 @@
 SolarflareBypass::SolarflareBypass() {}
 SolarflareBypass::~SolarflareBypass() {}
 bool SolarflareBypass::init() {
-    std::cout << "[EF_VI] Initializing Solarflare X2522 driver bypass..." << std::endl;
+    std::cout << "[EF_VI] Driver bypass setup at root." << std::endl;
     return true;
 }
 int SolarflareBypass::poll_rx(uint8_t* buffer, int max_len) { return 0; }
