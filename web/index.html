@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HFT Latency Arbitrage Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="terminal.css">
+</head>
+<body>
+    <div class="glow-container">
+        <div class="glow-spot spot-1"></div>
+        <div class="glow-spot spot-2"></div>
+    </div>
+    
+    <header class="app-header">
+        <div class="header-left">
+            <span class="pulse-indicator"></span>
+            <h1>LATENCY ARBITRAGE CORE ENGINE</h1>
+            <span class="badge">FPGA HOT PATH ACTIVE</span>
+        </div>
+        <div class="header-right">
+            <span class="net-status" id="wsStatus">SERVER DISCONNECTED</span>
+        </div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- ROW 1: TELEMETRY CARDS -->
+        <section class="card stats-card col-span-3">
+            <div class="stat-box">
+                <span class="stat-label">TOTAL P&L (USD)</span>
+                <span class="stat-val positive" id="statPnl">$0.00</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">TOTAL TRADES</span>
+                <span class="stat-val" id="statTrades">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">RACE WIN RATE</span>
+                <span class="stat-val" id="statWinRate">0.0%</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">CURRENT POSITION</span>
+                <span class="stat-val" id="statPosition">0</span>
+            </div>
+        </section>
+
+        <!-- ROW 2: ORDER BOOK VIEWER & CONTROLS -->
+        <section class="card order-book-card col-span-2">
+            <h2><span class="title-decor"></span>LIVE DUAL-VENUE QUOTE DECK</h2>
+            <div class="quotes-grid">
+                <div class="venue-panel">
+                    <h3>NASDAQ (FAST VENUE A)</h3>
+                    <div class="price-display">
+                        <span class="price-lbl">LAST MATCH</span>
+                        <span class="price-val" id="fastPrice">$150.00</span>
+                    </div>
+                </div>
+                <div class="venue-panel">
+                    <h3>ARCA (SLOW VENUE B)</h3>
+                    <div class="bid-ask-box">
+                        <div>
+                            <span class="ba-lbl">BID</span>
+                            <span class="ba-val stale" id="slowBid">$149.95</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div>
+                            <span class="ba-lbl">ASK</span>
+                            <span class="ba-val stale" id="slowAsk">$150.05</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card control-card">
+            <h2><span class="title-decor"></span>PCIe SYSTEM HARDWARE CONFIG</h2>
+            <div class="control-group">
+                <label>SYSTEM TICK-TO-ORDER LATENCY BUDGET: <span class="val-highlight" id="lblLatency">700 ns</span></label>
+                <input type="range" id="latencySlider" min="100" max="3000" step="50" value="700" class="slider">
+                <div class="slider-ticks">
+                    <span>100ns (Sub-1G)</span>
+                    <span>3000ns (10G/Stale)</span>
+                </div>
+            </div>
+            
+            <div class="control-actions">
+                <button class="btn btn-kill" id="btnKill">ARM HARD KILL SWITCH</button>
+                <button class="btn btn-reset" id="btnReset">RESET TELEMETRY</button>
+            </div>
+        </section>
+
+        <!-- ROW 3: PIPELINE VISUALIZER & LOG TERMINAL -->
+        <section class="card pipeline-card col-span-2">
+            <h2><span class="title-decor"></span>FPGA SUB-MICROSECOND HARDWARE PIPELINE TRACK</h2>
+            <div class="pipeline-track">
+                <div class="pipeline-node" id="nodeNic">
+                    <span class="node-icon">⚡</span>
+                    <span class="node-name">NIC PHY</span>
+                    <span class="node-time">50ns</span>
+                </div>
+                <div class="arrow">➔</div>
+                <div class="pipeline-node" id="nodeParser">
+                    <span class="node-icon">📥</span>
+                    <span class="node-name">ITCH PARSE</span>
+                    <span class="node-time">100ns</span>
+                </div>
+                <div class="arrow">➔</div>
+                <div class="pipeline-node" id="nodeComparator">
+                    <span class="node-icon">⚖️</span>
+                    <span class="node-name">NBBO COMP</span>
+                    <span class="node-time">100ns</span>
+                </div>
+                <div class="arrow">➔</div>
+                <div class="pipeline-node" id="nodeRisk">
+                    <span class="node-icon">🛡️</span>
+                    <span class="node-name">RISK GATE</span>
+                    <span class="node-time">5ns</span>
+                </div>
+                <div class="arrow">➔</div>
+                <div class="pipeline-node" id="nodeOuch">
+                    <span class="node-icon">📤</span>
+                    <span class="node-name">OUCH GEN</span>
+                    <span class="node-time">100ns</span>
+                </div>
+            </div>
+            <div class="pipeline-status" id="pipelineStatus">PIPELINE STANDBY - AWAITING FAST TICK UP/DOWN MOVEMENT</div>
+        </section>
+
+        <section class="card terminal-card">
+            <h2><span class="title-decor"></span>FIBER CROSS-CONNECT TELEMETRY LOG</h2>
+            <div class="terminal-body" id="terminalLog">
+                <div class="log-line system">[SYSTEM] Core Latency Arbitrage Engine initiated.</div>
+                <div class="log-line system">[SYSTEM] Waiting for WebSocket connection...</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
